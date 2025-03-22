@@ -1,0 +1,650 @@
+/* ===========================================
+   ÍNDICE DE SECCIONES OPTIMIZADO
+   ===========================================
+   1. Variables y Configuración Base
+   2. Layout Principal
+   3. Sistema de Pestañas y Navegación
+   4. Botones y Acciones
+   5. Formularios y Campos
+   6. Modo Oscuro
+   7. Componentes del Sistema
+   8. Calculadora
+   9. Responsive Design
+   =========================================== */
+
+/* ==========================================
+   1. VARIABLES Y CONFIGURACIÓN BASE
+   ========================================== */
+   :root {
+    /* Colores principales */
+    --primary: #1565c0;
+    --primary-dark: #0d47a1;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #17a2b8;
+    --light: #f8f9fa;
+    --dark: #333;
+    --bg: #f5f5f5;
+    --text: #333;
+    --border: #ddd;
+    
+    /* Sombras simplificadas */
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   2. LAYOUT PRINCIPAL
+   ========================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.dashboard-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.summary-card, 
+.section-card {
+    background: var(--light);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 15px;
+}
+
+/* ==========================================
+   3. SISTEMA DE PESTAÑAS Y NAVEGACIÓN
+   ========================================== */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+    background: var(--light);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.nav-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    min-height: 40px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.nav-button.bienvenida {
+    background-color: var(--danger);
+}
+
+.nav-button.mensajes {
+    background-color: var(--primary);
+}
+
+.nav-button:hover {
+    background-color: var(--danger);
+    transform: translateY(-2px);
+}
+
+.nav-button.active {
+    background-color: var(--success);
+}
+
+.tabcontent {
+    display: none;
+    padding: 15px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+/* ==========================================
+   4. BOTONES Y ACCIONES
+   ========================================== */
+/* Estilos base para todos los botones */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    margin: 3px;
+    min-height: 36px;
+}
+
+/* Variantes de botones */
+.btn-primary,
+.export-button {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-secondary,
+.btn-pre-procesar,
+.btn-calculadora {
+    background-color: var(--secondary);
+    color: white;
+}
+
+.btn-success,
+.btn-agregar {
+    background-color: var(--success);
+    color: white;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-info,
+.stats-button,
+.btn-reprocesar {
+    background-color: var(--info);
+    color: white;
+}
+
+.btn-procesar {
+    background-color: var(--primary);
+    color: white;
+}
+
+/* Efecto hover para botones */
+button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+    padding: 5px;
+}
+
+.btn-pre-procesar,
+.btn-reprocesar,
+.btn-procesar,
+.btn-agregar,
+.btn-calculadora {
+    flex: 1;
+    min-width: calc(33% - 8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ==========================================
+   5. FORMULARIOS Y CAMPOS
+   ========================================== */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+    min-height: 36px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(21, 101, 192, 0.1);
+}
+
+.mensaje-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.mensaje-textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Formularios específicos */
+.vendedor-form,
+.jefe-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: var(--light);
+}
+
+/* ==========================================
+   6. MODO OSCURO
+   ========================================== */
+.dark-mode {
+    --bg: #1a1a1a;
+    --text: #fff;
+    --border: #444;
+    --light: #2d2d2d;
+}
+
+.dark-mode .container,
+.dark-mode .tabcontent {
+    background: #333;
+    color: #fff;
+}
+
+.dark-mode .summary-card, 
+.dark-mode .section-card,
+.dark-mode .vendedor-form,
+.dark-mode .jefe-form {
+    background: #2d2d2d;
+}
+
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea {
+    background: #2d2d2d;
+    color: #fff;
+    border-color: #555;
+}
+
+.dark-mode .modal-content {
+    background-color: #333;
+    color: #fff;
+}
+
+/* ==========================================
+   7. COMPONENTES DEL SISTEMA
+   ========================================== */
+/* Tooltips y Modales */
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    max-width: 250px;
+    z-index: 1000;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: var(--shadow);
+    max-width: 500px;
+    width: 90%;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 1px solid var(--border);
+}
+
+/* Fecha inputs */
+.fecha-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.fecha-inputs div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fecha-inputs input[type="date"],
+.fecha-inputs select {
+    width: 60%;
+}
+
+/* Análisis Container */
+.analisis-container {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #1a1a1a;
+    color: #fff;
+    border-radius: 8px;
+    max-height: 500px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.jugada-container {
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: #2d2d2d;
+    border-radius: 6px;
+    border-left: 4px solid #3b82f6;
+}
+
+/* ==========================================
+   8. CALCULADORA
+   ========================================== */
+.calculadora-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.calculadora-content {
+    background: #333;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    max-width: 320px;
+    color: #fff;
+}
+
+.calculadora-display {
+    background: #444;
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-align: right;
+    font-size: 20px;
+}
+
+.calculadora-botones {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.calculadora-btn {
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background: #555;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Calculadora Excel */
+.calc-excel-container {
+    background-color: #333;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+}
+
+/* Contenedor con scroll para las filas */
+#calc-excelRows {
+    max-height: 60vh;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.calc-excel-header {
+    display: flex;
+    background-color: #444;
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+    color: #fff;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.calc-excel-cell {
+    padding: 8px;
+    border-right: 1px solid #555;
+    flex: 1;
+    text-align: center;
+}
+
+.calc-excel-row {
+    display: flex;
+    border-bottom: 1px solid #555;
+}
+
+.calc-excel-input {
+    width: 100%;
+    border: none;
+    padding: 8px 0;
+    text-align: right;
+    outline: none;
+    background-color: #3a3a3a;
+    color: #fff;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.calc-excel-input::-webkit-outer-spin-button,
+.calc-excel-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#calc-addRowBtn {
+    background-color: var(--success);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    font-weight: 500;
+    position: sticky;
+    bottom: 0;
+    z-index: 100;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+}
+
+/* ==========================================
+   9. RESPONSIVE DESIGN
+   ========================================== */
+@media (max-width: 768px) {
+    .container {
+        margin: 0;
+        padding: 10px;
+        border-radius: 0;
+    }
+
+    .tabs {
+        flex-direction: column;
+        padding: 5px;
+        gap: 5px;
+    }
+
+    .nav-button {
+        width: 100%;
+        padding: 12px;
+        text-align: left;
+    }
+
+    .nav-button.bienvenida {
+        order: -1;
+    }
+
+    .button-group {
+        padding: 4px;
+        gap: 4px;
+    }
+
+    .btn-pre-procesar,
+    .btn-reprocesar,
+    .btn-procesar,
+    .btn-agregar,
+    .btn-calculadora {
+        min-width: calc(50% - 4px);
+        padding: 10px;
+    }
+
+    .vendedor-form,
+    .jefe-form {
+        grid-template-columns: 1fr;
+    }
+
+    .fecha-inputs div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .fecha-inputs input[type="date"],
+    .fecha-inputs select {
+        width: 100%;
+    }
+
+    /* Mejorar usabilidad táctil */
+    input, select, button, .nav-button {
+        min-height: 44px;
+        font-size: 16px;
+    }
+
+    input, select, textarea {
+        font-size: 16px !important; /* Prevenir zoom en móviles */
+    }
+
+    button, a, input, select {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 320px) {
+    .button-group {
+        flex-direction: column;
+    }
+
+    .button-group button {
+        width: 100%;
+        margin-bottom: 4px;
+        min-width: 100%;
+    }
+
+    .container {
+        padding: 8px;
+    }
+
+    .calculadora-content {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .calculadora-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+/* Optimizaciones para rendimiento */
+.nav-button, button, .modal, .calculadora-modal {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Mejoras para Android Chrome */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    /* Evitar highlight al tocar */
+    button, a, input, select {
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Arreglar posición de modales */
+    .modal, .calculadora-modal {
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+}
